@@ -108,6 +108,7 @@ export default function AccessibilityControls() {
             </div>
           </div>
           <ul className="nav-links">
+          <li><a href="https://lex-hack-project.vercel.app/verify">Verify</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="#ai-assistant">AI Assistant</a></li>
