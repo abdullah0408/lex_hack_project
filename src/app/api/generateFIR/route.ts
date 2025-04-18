@@ -12,29 +12,45 @@ export async function POST(request: Request) {
   }
 
   const firText = `
-You are a helpful assistant tasked with writing a formal First Information Report (FIR) in markdown format.
-
-Use the following information:
-- **FIR Details**:
-${Object.entries(firDetails)
-  .map(([key, value]) => `  - ${key}: ${value}`)
-  .join('\n')}
-
-- **Follow-up Responses**:
-${questionAnswers
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  .map((qa: any) => `  - ${qa.question}: ${qa.answer}`)
-  .join('\n')}
-
-Please write a professional, structured FIR in proper markdown with headings, bullet points if needed, and clear narrative.
-
-Make sure to include:
-- Introduction
-- Incident details (date, time, location)
-- Persons involved
-- Damages/injuries
-- Action requested
-`;
+  You are a helpful assistant tasked with drafting a **formal First Information Report (FIR)** in **markdown format**.
+  
+  Use the following data:
+  
+  ---
+  
+  ### FIR Details:
+  ${Object.entries(firDetails)
+    .map(([key, value]) => `- **${key}**: ${value}`)
+    .join('\n')}
+  
+  ---
+  
+  ### Follow-up Responses:
+  ${questionAnswers
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((qa: any) => `- **${qa.question}**: ${qa.answer}`)
+    .join('\n')}
+  
+  ---
+  
+  ### Instructions for the Report:
+  
+  Write a **well-structured, professional FIR** in clear and formal language. Use markdown formatting with proper headings such as:
+  
+  - **1. Complainant Details**  
+  - **2. Incident Summary**  
+  - **3. Accused Details (if known)**  
+  - **4. Witnesses (if any)**  
+  - **5. Evidence (if any)**  
+  - **6. Legal Action Recommended**
+  
+  In the final section of the FIR titled **Legal Action Recommended**, please mention:
+  
+  - The **legal action that should be taken**.
+  - The **relevant sections of the Indian Penal Code (IPC)** or any other applicable Indian law under which the accused can be charged.
+  
+  Ensure the tone is formal, factual, and free from emotional or biased language.
+  `;
 
   try {
     const response = await ai.models.generateContent({

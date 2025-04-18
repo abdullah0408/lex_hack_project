@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Loader2 } from 'lucide-react';
 
 export default function QuestionsPage() {
   const router = useRouter();
@@ -30,10 +35,8 @@ export default function QuestionsPage() {
           body: JSON.stringify({ firDetails }),
         });
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        
+        if (!response.ok) throw new Error('Network response was not ok');
+
         const data = await response.json();
 
         if (data.questions) {
@@ -72,37 +75,50 @@ export default function QuestionsPage() {
     }));
 
     localStorage.setItem('questionAnswers', JSON.stringify(questionData));
-    router.push('/fir');
+    router.push('/fir/doc');
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-xl font-bold mb-4">Follow-Up Questions</h1>
-      {loading ? (
-        <p>Loading questions...</p>
-      ) : (
-        <>
-          {questions.map((q, i) => (
-            <div key={i} className="mb-4">
-              <label className="block mb-1 font-medium">{q}</label>
-              <input
-                className="w-full border p-2 rounded"
-                type="text"
-                value={answers[i]}
-                onChange={(e) => handleAnswerChange(i, e.target.value)}
-              />
+    <div className="min-h-screen flex items-center justify-center bg-muted px-4 py-10">
+      <Card className="w-full max-w-3xl shadow-xl rounded-2xl">
+        <CardContent className="p-6 md:p-10">
+          <h1 className="text-2xl font-semibold mb-6 text-center">Follow-Up Questions</h1>
+          {loading ? (
+            <div className="flex justify-center items-center py-10">
+              <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
+              <span className="ml-2 text-sm">Loading questions...</span>
             </div>
-          ))}
-          {questions.length > 0 && (
-            <button
-              onClick={handleSubmit}
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-            >
-              Submit & Continue
-            </button>
+          ) : (
+            <>
+              <div className="space-y-5">
+                {questions.map((q, i) => (
+                  <div key={i} className="space-y-2">
+                    <Label htmlFor={`question-${i}`} className="font-medium">
+                      {q}
+                    </Label>
+                    <Input
+                      id={`question-${i}`}
+                      placeholder="Your answer..."
+                      value={answers[i]}
+                      onChange={(e) => handleAnswerChange(i, e.target.value)}
+                      required
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {questions.length > 0 && (
+                <Button
+                  onClick={handleSubmit}
+                  className="mt-6 w-full"
+                >
+                  Submit & Continue
+                </Button>
+              )}
+            </>
           )}
-        </>
-      )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
