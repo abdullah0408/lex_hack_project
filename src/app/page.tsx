@@ -109,12 +109,10 @@ export default function AccessibilityControls() {
           </div>
           <ul className="nav-links">
             <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#legal-terms">Legal Terms</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="#ai-assistant">AI Assistant</a></li>
-            <li><a href="lawyer-consultation.html">Legal Consultation</a></li>
             <li><a href="https://lex-hack-project.vercel.app/fir/form">FIR Generater</a></li>
+            <li><a href="https://lex-hack-project.vercel.app/connect-with-lawyer">Connect With Lawyer</a></li>
           </ul>
           <div className="hamburger">
             <span></span>
