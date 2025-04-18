@@ -114,7 +114,7 @@ export default function AccessibilityControls() {
             <li><a href="#contact">Contact</a></li>
             <li><a href="#ai-assistant">AI Assistant</a></li>
             <li><a href="lawyer-consultation.html">Legal Consultation</a></li>
-            <li><a href="http://localhost:3000/fir/form">FIR Generater</a></li>
+            <li><a href="https://lex-hack-project.vercel.app/fir/form">FIR Generater</a></li>
           </ul>
           <div className="hamburger">
             <span></span>
